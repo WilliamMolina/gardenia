@@ -21,7 +21,7 @@
         var sensor = topic.split('/')[2];
         if(sensor == 'watering'){
             var label = document.getElementById('last_watering');
-            label.innerText = new Date();
+            label.innerText = new Date().toLocaleDateString("en-US");
         }else{
             var label = document.getElementById(sensor);
             label.innerText = payload;

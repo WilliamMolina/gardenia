@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Gardenia</title>
+    <script src="https://unpkg.com/mqtt@3.0.0/dist/mqtt.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #96D9B6, #94C596);
+            color: #f9f9f9;
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <script>
+      var client = mqtt.connect('wss://iot.eclipse.org:443/ws');
+      client.subscribe("gardenia/plant/humidity");
+      client.subscribe("gardenia/plant/temperature");
+      client.subscribe("gardenia/plant/moisture");
+      client.on("message", function (topic, payload) {
+        var sensor = topic.split('/')[2];
+        var label = document.getElementById(sensor);
+        label.innerText = payload;
+      });
+    </script>
+    <div><p>Temperatura: <span id="temperature">0</span><span> &#8451;</span></p></div>
+    <div><p>Humedad del aire: <span id="humidity">0</span><span> %</span></p></div>
+    <div><p>Humedad del suelo: <span id="moisture">0</span><span> %</span></p></div>
+  </body>
+</html>

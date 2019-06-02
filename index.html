@@ -16,14 +16,22 @@
       client.subscribe("gardenia/plant/humidity");
       client.subscribe("gardenia/plant/temperature");
       client.subscribe("gardenia/plant/moisture");
+      client.subscribe("gardenia/plant/watering");
       client.on("message", function (topic, payload) {
         var sensor = topic.split('/')[2];
-        var label = document.getElementById(sensor);
-        label.innerText = payload;
+        if(sensor == 'watering'){
+            var label = document.getElementById('last_watering');
+            label.innerText = new Date();
+        }else{
+            var label = document.getElementById(sensor);
+            label.innerText = payload;
+        }    
+        console.log(sensor);    
       });
     </script>
     <div><p>Temperatura: <span id="temperature">0</span><span> &#8451;</span></p></div>
     <div><p>Humedad del aire: <span id="humidity">0</span><span> %</span></p></div>
     <div><p>Humedad del suelo: <span id="moisture">0</span><span> %</span></p></div>
+    <div><p>&Uacute;ltimo riego: </p><span id="last_watering"></span></div>
   </body>
 </html>

@@ -21,12 +21,14 @@
         var sensor = topic.split('/')[2];
         if(sensor == 'watering'){
             var label = document.getElementById('last_watering');
-            label.innerText = new Date().toLocaleDateString("en-US");
+            var d = new Date(Number(payload.toString()));
+            var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+            label.innerText = datestring;
         }else{
             var label = document.getElementById(sensor);
             label.innerText = payload;
-        }    
-        console.log(sensor);    
+        }      
       });
     </script>
     <div><p>Temperatura: <span id="temperature">0</span><span> &#8451;</span></p></div>

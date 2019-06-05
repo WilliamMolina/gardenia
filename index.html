@@ -1,39 +1,39 @@
-<html>
+<!DYPE html>
+  <html lang="en">
+
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gardenia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://unpkg.com/mqtt@3.0.0/dist/mqtt.min.js"></script>
-    <style>
-        body {
-            background-image: linear-gradient(to right, #96D9B6, #94C596);
-            color: #f9f9f9;
-            font-weight: bold;
-        }
-    </style>
   </head>
+
   <body>
-    <script>
-      var client = mqtt.connect('wss://iot.eclipse.org:443/ws');
-      client.subscribe("gardenia/plant/humidity");
-      client.subscribe("gardenia/plant/temperature");
-      client.subscribe("gardenia/plant/moisture");
-      client.subscribe("gardenia/plant/watering");
-      client.on("message", function (topic, payload) {
-        var sensor = topic.split('/')[2];
-        if(sensor == 'watering'){
-            var label = document.getElementById('last_watering');
-            var d = new Date(Number(payload.toString()));
-            var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-            label.innerText = datestring;
-        }else{
-            var label = document.getElementById(sensor);
-            label.innerText = payload;
-        }      
-      });
-    </script>
-    <div><p>Temperatura: <span id="temperature">0</span><span> &#8451;</span></p></div>
-    <div><p>Humedad del aire: <span id="humidity">0</span><span> %</span></p></div>
-    <div><p>Humedad del suelo: <span id="moisture">0</span><span> %</span></p></div>
-    <div><p>&Uacute;ltimo riego: </p><span id="last_watering"></span></div>
+    <main class="container">
+      <div class="title">
+        <h1 class="text-white text-center"><img src="img/logo-mongodb.png" width="50px" alt="logo-mongodb">Gardenia</h1>
+      </div>
+      <div class="row content">
+        <div class="col">
+          <p class="data text-white text-center">Temperatura</br><span id="temperature"></span><span> &#8451;</span></p>
+          <p class="data text-white text-center">Humedad del aire</br><span id="humidity"></span><span> %</span></p>
+        </div>
+        <div class="col">
+          <div class="cup"></div>
+        </div>
+        <div class="col">
+          <p class="data text-white text-center">&Uacute;ltimo riego</br><span id="last_watering"></span>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <h4 class="text-center text-white"><img src="img/logo-mongodb.png" width="35px" height="20px" alt="logo-mongodb">Gardenia</h4>
+      <div class="copyright text-center"><p class="text-white">2019 &copy;</p></div>
+    </footer>
+    <script src="js/main.js"></script>
   </body>
-</html>
+
+  </html>
